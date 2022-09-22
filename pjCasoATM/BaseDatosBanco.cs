@@ -31,5 +31,11 @@
 
             return null;
         }
+
+        internal decimal ObtenerSaldoTotal(int numeroCuenta)
+        {
+            Cuenta cuentaUsuario = ObtenerCuenta(numeroCuenta);
+            return cuentaUsuario.SaldoTotal;
+        }
     }
 }

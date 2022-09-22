@@ -51,7 +51,53 @@ namespace pjCasoATM
 
         private void RealizarTransacciones()
         {
-            throw new NotImplementedException();
+            Transaccion transaccionActual;
+            bool usuarioSalio = false;
+
+            while(!usuarioSalio)
+            {
+                int seleccionMenuPrincipal = MostrarMenuPrincipal();
+                switch((OpcionMenu)seleccionMenuPrincipal)
+                {
+                    case OpcionMenu.SOLICITUD_SALDO:
+                    case OpcionMenu.RETIRO:
+                        transaccionActual = CrearTrasanccion(seleccionMenuPrincipal);
+                        transaccionActual.Ejecutar();
+                        break;
+                    case OpcionMenu.SALIR_ATM:
+                    default:
+                        pantalla.MostrarLineaMensaje(
+                            "\nNo introdujo una opción válida. Intente de nuevo");
+                        break;
+                }
+            }
+        }
+
+        private Transaccion CrearTrasanccion(int tipo)
+        {
+            Transaccion temp = null;
+            switch((OpcionMenu)tipo)
+            {
+                case OpcionMenu.SOLICITUD_SALDO:
+                    temp = new SolicitudSaldo(numeroCuentaActual,
+                        pantalla, baseDatosBanco);
+                    break;
+                case OpcionMenu.RETIRO:
+                    temp = new Retiro(numeroCuentaActual, pantalla,
+                        baseDatosBanco, teclado, dispensadorEfectivo);
+                    break;
+            }
+            return temp;
+        }
+
+        private int MostrarMenuPrincipal()
+        {
+            pantalla.MostrarLineaMensaje("\nMenú principal:");
+            pantalla.MostrarLineaMensaje("1- Ver mi saldo");
+            pantalla.MostrarLineaMensaje("2- Retirar efectivo");
+            pantalla.MostrarLineaMensaje("3- Salir\n");
+            pantalla.MostrarMensaje("Introduzca una opción: ");
+            return teclado.ObtenerEntrada();
         }
 
         private void AutenticarUsuario()
