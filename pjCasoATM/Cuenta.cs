@@ -23,5 +23,10 @@
         {
             return (pin == pINUsuario);
         }
+
+        internal void Debitar(decimal monto)
+        {
+            saldoTotal -= monto;
+        }
     }
 }

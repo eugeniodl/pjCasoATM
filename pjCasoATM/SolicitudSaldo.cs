@@ -18,7 +18,11 @@ namespace pjCasoATM
 
         internal override void Ejecutar()
         {
-            throw new NotImplementedException();
+            decimal saldoTotal = BaseDatos.ObtenerSaldoTotal(NumeroCuenta);
+            PantallaUsuario.MostrarLineaMensaje("\nInformación del saldo:");
+            PantallaUsuario.MostrarMensaje("\n - Saldo total: ");
+            PantallaUsuario.MostrarMontoEnDolares(saldoTotal);
+            PantallaUsuario.MostrarLineaMensaje("");
         }
     }
 }

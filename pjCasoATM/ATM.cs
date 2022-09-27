@@ -34,17 +34,17 @@ namespace pjCasoATM
 
         public void Ejecutar()
         {
-            while(true)
+            while (true)
             {
-                while(!usuarioAutenticado)
+                while (!usuarioAutenticado)
                 {
                     pantalla.MostrarLineaMensaje("\n¡Bienvenido!");
                     AutenticarUsuario();
                 }
 
                 RealizarTransacciones();
-                usuarioAutenticado=false;
-                numeroCuentaActual=0;
+                usuarioAutenticado = false;
+                numeroCuentaActual = 0;
                 pantalla.MostrarLineaMensaje("\n¡Gracias! ¡Adiós!");
             }
         }
@@ -54,10 +54,10 @@ namespace pjCasoATM
             Transaccion transaccionActual;
             bool usuarioSalio = false;
 
-            while(!usuarioSalio)
+            while (!usuarioSalio)
             {
                 int seleccionMenuPrincipal = MostrarMenuPrincipal();
-                switch((OpcionMenu)seleccionMenuPrincipal)
+                switch ((OpcionMenu)seleccionMenuPrincipal)
                 {
                     case OpcionMenu.SOLICITUD_SALDO:
                     case OpcionMenu.RETIRO:
@@ -65,6 +65,9 @@ namespace pjCasoATM
                         transaccionActual.Ejecutar();
                         break;
                     case OpcionMenu.SALIR_ATM:
+                        pantalla.MostrarLineaMensaje("\nSaliendo del sistema...");
+                        usuarioSalio = true;
+                        break;
                     default:
                         pantalla.MostrarLineaMensaje(
                             "\nNo introdujo una opción válida. Intente de nuevo");
@@ -76,7 +79,7 @@ namespace pjCasoATM
         private Transaccion CrearTrasanccion(int tipo)
         {
             Transaccion temp = null;
-            switch((OpcionMenu)tipo)
+            switch ((OpcionMenu)tipo)
             {
                 case OpcionMenu.SOLICITUD_SALDO:
                     temp = new SolicitudSaldo(numeroCuentaActual,

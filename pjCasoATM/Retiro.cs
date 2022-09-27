@@ -36,7 +36,18 @@ namespace pjCasoATM
 
                     if (monto <= saldoTotal)
                     {
-
+                        if (dispensadorEfectivo.HaySufienteEfectivoDisponible(monto))
+                        {
+                            BaseDatos.Debitar(NumeroCuenta, monto);
+                            dispensadorEfectivo.DispensarEfectivo(monto);
+                            efectivoDispensado = true;
+                            PantallaUsuario.MostrarLineaMensaje(
+                                "\nPor favor tome su efectivo del dispensador.");
+                        }
+                        else
+                            PantallaUsuario.MostrarLineaMensaje(
+                                "\nNo hay suficiente efectivo disponible en el ATM." +
+                                "\nPor favor elija un monto más pequeño.");
                     }
                     else
                         PantallaUsuario.MostrarLineaMensaje(

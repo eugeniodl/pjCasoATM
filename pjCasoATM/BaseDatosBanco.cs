@@ -37,5 +37,11 @@
             Cuenta cuentaUsuario = ObtenerCuenta(numeroCuenta);
             return cuentaUsuario.SaldoTotal;
         }
+
+        internal void Debitar(int numeroCuenta, decimal monto)
+        {
+            Cuenta cuentaUsuario = ObtenerCuenta(numeroCuenta);
+            cuentaUsuario.Debitar(monto);
+        }
     }
 }

@@ -11,5 +11,10 @@
         {
             Console.Write(mensaje);
         }
+
+        internal void MostrarMontoEnDolares(decimal monto)
+        {
+            Console.Write("{0:C}", monto);
+        }
     }
 }
